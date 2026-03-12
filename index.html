@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Czy Żancia mnie kocha? 🥹</title>
+  <style>
+    :root {
+      --bg1: #fff0f6;
+      --bg2: #ffe4ee;
+      --bg3: #ffd6e7;
+      --card: rgba(255, 255, 255, 0.78);
+      --text: #a33a68;
+      --accent: #ff5c9f;
+      --accent-2: #ff87b7;
+      --accent-dark: #e44288;
+      --shadow: 0 20px 50px rgba(255, 105, 160, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.9), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(255,255,255,0.65), transparent 24%),
+        linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+      color: var(--text);
+      text-align: center;
+      position: relative;
+    }
+
+    .bg-blur {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(70px);
+      opacity: 0.45;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .bg-blur.one {
+      width: 220px;
+      height: 220px;
+      background: #ff9fc8;
+      top: 6%;
+      left: 8%;
+      animation: drift 9s ease-in-out infinite;
+    }
+
+    .bg-blur.two {
+      width: 260px;
+      height: 260px;
+      background: #ffd0e1;
+      right: 8%;
+      bottom: 8%;
+      animation: drift 11s ease-in-out infinite reverse;
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(18px, -12px) scale(1.08); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: min(92vw, 560px);
+      padding: 38px 28px 30px;
+      border-radius: 30px;
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+    }
+
+    .sparkle {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+      opacity: 0.85;
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.75; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.18;
+      letter-spacing: 0.2px;
+      text-shadow: 0 2px 14px rgba(255,255,255,0.45);
+    }
+
+    #message {
+      min-height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 16px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 171, 208, 0.38);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+      font-size: clamp(1.2rem, 3.3vw, 1.9rem);
+      font-weight: 700;
+      color: var(--accent-dark);
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .buttons {
+      margin-top: 22px;
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      min-width: 140px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-size: 1.06rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      box-shadow: 0 12px 26px rgba(255, 105, 160, 0.16);
+    }
+
+    button:hover {
+      transform: translateY(-2px) scale(1.04);
+      filter: brightness(1.02);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .yes {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+    }
+
+    .no {
+      background: rgba(255, 255, 255, 0.96);
+      color: var(--accent-dark);
+      border: 1px solid rgba(255, 140, 190, 0.36);
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -40px;
+      font-size: 24px;
+      animation: floatUp linear forwards;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.92;
+      text-shadow: 0 6px 16px rgba(255, 105, 160, 0.22);
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(0.8) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) translateX(var(--drift)) scale(1.4) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .pop {
+      animation: pop 0.35s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.88); opacity: 0.45; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 18px 24px;
+        border-radius: 24px;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .buttons {
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-blur one"></div>
+  <div class="bg-blur two"></div>
+
+  <div class="container">
+    <div class="sparkle">✨💖✨</div>
+    <h1>Czy Żancia mnie kocha? 💕</h1>
+
+    <div id="message">Wybierz odpowiedź, skarbie </div>
+
+    <div class="buttons">
+      <button class="yes" onclick="answerYes()">Tak 💖</button>
+      <button class="no" onclick="answerNo()">Nie 💔</button>
+    </div>
+  </div>
+
+  <script>
+    const message = document.getElementById('message');
+    let heartInterval = null;
+
+    function animateMessage(text) {
+      message.classList.remove('pop');
+      void message.offsetWidth;
+      message.textContent = text;
+      message.classList.add('pop');
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      const hearts = ['💖', '💕', '💗', '💞', '❤️'];
+      heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (18 + Math.random() * 28) + 'px';
+      heart.style.animationDuration = (3.2 + Math.random() * 2.4) + 's';
+      heart.style.setProperty('--drift', (Math.random() * 160 - 80) + 'px');
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6500);
+    }
+
+    function startHearts() {
+      stopHearts();
+      for (let i = 0; i < 16; i++) {
+        setTimeout(createHeart, i * 120);
+      }
+      heartInterval = setInterval(createHeart, 170);
+    }
+
+    function stopHearts() {
+      if (heartInterval) {
+        clearInterval(heartInterval);
+        heartInterval = null;
+      }
+    }
+
+    function answerYes() {
+      animateMessage('Ja też ją kocham bardzo mocno 🥰');
+      startHearts();
+    }
+
+    function answerNo() {
+      animateMessage('🥺🥺💔💔');
+      stopHearts();
+    }
+  </script>
+</body>
+</html>
